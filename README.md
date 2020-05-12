@@ -17,11 +17,16 @@ Udani Wijewardhana (udaniwijewardhana@gmail.com)1, Denny Meyer (dmeyer@swin.edu.
 To install and explore the application in your R, you could type the following on your r console. 
                                          
                           shiny::runGitHub( "PPMCA", "uwijewardhana")                       
-                                         or
-                          devtools::install_github("uwijewardhana/PPMCA")
-                          library(PPMCA)
-                          run_app()
-                                         
+                          
+You can also install the "PPMCA" package and run the app on your r console following the steps below.
+
+- Download the https://github.com/uwijewardhana/PPMCA/ repository zip folder and extract.
+- Open the extracted folder and open PPMCA.Rproj.
+- Then run the below code in PPMCA.Rproj:
+                        devtools::install_github("uwijewardhana/PPMCA")
+                        library(PPMCA)
+                        shiny::runApp(appDir = "./app.R")
+
 This application includes five main parts namely 'Annual data and Predictors', 'Persistence Probability Model', 'Abundance plots' with a distribution map, 'Single-species Joint Model' and 'Changepoint Analysis'. Figure 1 illustrates the interface of the PPMCA application. This app is only applicable for annual data. Main dataframe should have the columns Locality, Latitude, Longitude, Year and Count. These names are case sensitive. Annual predictors should enter as a separate dataframe. Possible maximum number of predictors is 5. These predictor coefficients display as p.y1, p.y2, ... for count model and p.z1, p.z2, ... for zero inflation probability model. The order is same as in the .csv file of predictors.
 
 [![Video Tutorial](https://img.youtube.com/vi/cX_uNPx7UOQ/0.jpg)](https://www.youtube.com/watch?v=cX_uNPx7UOQ&feature=youtu.be)
