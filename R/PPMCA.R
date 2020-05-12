@@ -790,7 +790,7 @@ output$plot1 <- renderPlot({
 
 output$plot2 <- renderLeaflet({
     df <- filedata2()
-    map <- leaflet(df) %>% addTiles() %>% addMarkers(~Longitude, ~Latitude, label = ~as.character(Locality))
+    map <- leaflet(df) %>% addTiles() %>% addMarkers(~Longitude, ~Latitude, label = ~as.character(Locality), clusterOptions = markerClusterOptions())
     map
 })
 
