@@ -1,0 +1,32 @@
+Package: PPMCA
+Type: Package
+Title: Persistence Probability Models and Changepoint Analysis
+Version: 0.5
+Date: 2020-05-12
+Author: Udani A. Wijewardhana
+Maintainer: Udani A. Wijewardhana <udaniwijewardhana@gmail.com>
+Description: Users can use this app to identify the significant explanatory variables and the trends of the species during a span of years. The app would use truncated count models with log linear regression and zero inflation probability models with logistic regression. This app enables users to identify the significant changes in abundance level using Bayesian changepoint methods.Species persistence models in both spatial and temporal scales are used to identify the significant predictors for species count data while considering zero inflation models and detect significant changes in species abundance level using changepoint analysis.
+Imports:
+  shiny,
+  DT,
+  plyr,
+  ggplot2,
+  dplyr,
+  lattice,
+  gridExtra,
+  leaflet,
+  INLA,
+  breakpoint,
+  cumSeg,
+  changepoint,
+  bcp
+Suggests:
+  INLA,
+  R.rsp
+Additional_repositories: https://inla.r-inla-download.org/R/stable
+VignetteBuilder: R.rsp
+License: MIT + file LICENSE
+URL: https://github.com/uwijewardhana/PPMCA
+BugReports: https://github.com/uwijewardhana/PPMCA/issues
+LazyData: TRUE
+RoxygenNote: 6.0.1
