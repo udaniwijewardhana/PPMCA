@@ -87,7 +87,7 @@ The authors gratefully acknowledge the Ministry of Higher Education in Australia
 
 ### To install and explore the application in your R, you could type the following on your r console. 
                                          
-                                              shiny::runGitHub( "PPMCA", "uwijewardhana") 
+> shiny::runGitHub( "PPMCA", "uwijewardhana") 
                                    
 - User can access the standard R-repository to download and install package R-INLA by http://www.r-inla.org/download.
 - User should install the other attached packages listed in sessionInfo() to explore the application in R console.                          
@@ -97,9 +97,9 @@ The authors gratefully acknowledge the Ministry of Higher Education in Australia
 - Open the extracted folder and open PPMCA.Rproj.
 - Then run the below code in PPMCA.Rproj:
                         
-                                             devtools::install_github("uwijewardhana/PPMCA")
-                                             library(PPMCA)
-                                             shiny::runApp(appDir = "./app.R")
+> devtools::install_github("uwijewardhana/PPMCA")
+> library(PPMCA)
+> shiny::runApp(appDir = "./app.R")
 
 ## Session Information
 
