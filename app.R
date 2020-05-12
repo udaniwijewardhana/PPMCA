@@ -24,6 +24,11 @@ div(style="display: inline-block;vertical-align:top; width: 300px;", fileInput("
 div(style="display: inline-block;vertical-align:top; width: 300px;", selectInput("datanorm", "Count data normalization:", choices=c("rnorm", "stand", "none"), selected = "none")),
 div(style="display: inline-block;vertical-align:top; width: 300px;", selectInput("prednorm", "Predictors normalization:", choices=c("rnorm", "stand", "none"), selected = "none")),
 
+tags$style(type="text/css",
+           ".shiny-output-error { visibility: hidden; }",
+           ".shiny-output-error:before { visibility: hidden; }"
+),
+         
 tabsetPanel(
 
 tabPanel("Auunual Data and Predictors",
