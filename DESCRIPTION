@@ -22,9 +22,7 @@ Imports:
   bcp
 Suggests:
   INLA,
-  R.rsp
 Additional_repositories: https://inla.r-inla-download.org/R/stable
-VignetteBuilder: R.rsp
 License: MIT + file LICENSE
 URL: https://github.com/uwijewardhana/PPMCA
 BugReports: https://github.com/uwijewardhana/PPMCA/issues
