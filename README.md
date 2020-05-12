@@ -104,4 +104,4 @@ The authors gratefully acknowledge the Ministry of Higher Education in Australia
 
 ## Manual 
 
-[PPMCA_manual](https://github.com/uwijewardhana/PPMCA/files/4612956/PPMCA_manual.pdf) 
+[PPMCA_manual](https://github.com/cran/SpatialEpiApp/files/4613335/PPMCA_manual.pdf) 
