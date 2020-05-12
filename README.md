@@ -14,20 +14,6 @@ Udani Wijewardhana (udaniwijewardhana@gmail.com)1, Denny Meyer (dmeyer@swin.edu.
 - Use single species distribution models considering both abundance (count model) and occupancy (zero inflation probability model) to identify the significant factors for this abundance /occurrence using INLA. This app can only take geostatistical data into account.
 - Use four major changepoint methods to identify some significant changes of the species abundance level using raw data.
 
-To install and explore the application in your R, you could type the following on your r console. 
-                                         
-                                              shiny::runGitHub( "PPMCA", "uwijewardhana")                       
-                          
-You can also install the "PPMCA" package and run the app on your r console following the steps below.
-
-- Download the https://github.com/uwijewardhana/PPMCA/ repository zip folder and extract.
-- Open the extracted folder and open PPMCA.Rproj.
-- Then run the below code in PPMCA.Rproj:
-                        
-                                             devtools::install_github("uwijewardhana/PPMCA")
-                                             library(PPMCA)
-                                             shiny::runApp(appDir = "./app.R")
-
 This application includes five main parts namely 'Annual data and Predictors', 'Persistence Probability Model', 'Abundance plots' with a distribution map, 'Single-species Joint Model' and 'Changepoint Analysis'. Figure 1 illustrates the interface of the PPMCA application. This app is only applicable for annual data. Main dataframe should have the columns Locality, Latitude, Longitude, Year and Count. These names are case sensitive. Annual predictors should enter as a separate dataframe. Possible maximum number of predictors is 5. These predictor coefficients display as p.y1, p.y2, ... for count model and p.z1, p.z2, ... for zero inflation probability model. The order is same as in the .csv file of predictors.
 
 [![Video Tutorial](https://img.youtube.com/vi/cX_uNPx7UOQ/0.jpg)](https://www.youtube.com/watch?v=cX_uNPx7UOQ&feature=youtu.be)
@@ -99,8 +85,21 @@ The authors gratefully acknowledge the Ministry of Higher Education in Australia
 
 ## Installation Instructions
 
+### To install and explore the application in your R, you could type the following on your r console. 
+                                         
+                                              shiny::runGitHub( "PPMCA", "uwijewardhana") 
+                                   
 - User can access the standard R-repository to download and install package R-INLA by http://www.r-inla.org/download.
-- User should install the other attached packages listed below to explore the application in R console.
+- User should install the other attached packages listed in sessionInfo() to explore the application in R console.                          
+### You can also install the "PPMCA" package and run the app on your r console following the steps below.
+
+- Download the https://github.com/uwijewardhana/PPMCA/ repository zip folder and extract.
+- Open the extracted folder and open PPMCA.Rproj.
+- Then run the below code in PPMCA.Rproj:
+                        
+                                             devtools::install_github("uwijewardhana/PPMCA")
+                                             library(PPMCA)
+                                             shiny::runApp(appDir = "./app.R")
 
 ## Session Information
 
