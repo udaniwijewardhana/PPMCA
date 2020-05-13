@@ -12,7 +12,7 @@ library(cumSeg)
 library(changepoint)
 library(bcp)
 
-### Siny user interface ###
+### Shiny user interface ###
 
 ui <- fluidPage(
 
