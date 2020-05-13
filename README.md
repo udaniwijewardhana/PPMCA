@@ -112,4 +112,4 @@ shiny::runApp(appDir = "./app.R")
 
 ## Manual 
 
-[PPMCA_manual](https://github.com/cran/SpatialEpiApp/files/4613335/PPMCA_manual.pdf) 
+[PPMCA_manual](https://github.com/uwijewardhana/PPMCA/files/4621738/PPMCA_manual.pdf)
