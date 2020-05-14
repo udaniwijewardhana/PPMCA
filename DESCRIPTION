@@ -15,16 +15,17 @@ Imports:
   lattice,
   gridExtra,
   leaflet,
-  INLA,
   breakpoint,
   cumSeg,
   changepoint,
   bcp
 Suggests:
   INLA,
+  R.rsp
+VignetteBuilder: R.rsp
 Additional_repositories: https://inla.r-inla-download.org/R/stable
-License: MIT + file LICENSE
+License: MIT 
 URL: https://github.com/uwijewardhana/PPMCA
 BugReports: https://github.com/uwijewardhana/PPMCA/issues
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2

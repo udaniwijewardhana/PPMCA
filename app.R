@@ -6,7 +6,7 @@ library(dplyr)
 library(lattice)
 library(gridExtra)
 library(leaflet)
-library(INLA)
+#library(INLA)
 library(breakpoint)
 library(cumSeg)
 library(changepoint)
@@ -28,7 +28,7 @@ tags$style(type="text/css",
            ".shiny-output-error { visibility: hidden; }",
            ".shiny-output-error:before { visibility: hidden; }"
 ),
-         
+
 tabsetPanel(
 
 tabPanel("Auunual Data and Predictors",
