@@ -3,13 +3,12 @@
 \docType{package}
 \name{PPMCA}
 \alias{PPMCA}
-\alias{PPMCA-package}
-\title{PPMCA: A Shiny web application for Persistence Probability Models and Changepoint Analysis}
+\title{PPMCA: A Shiny web application to analyze species data in spatial and temporal scales and for changepoint analysis}
 \description{
-Users can use this app to identify the significant explanatory variables and
-the trends of the species during a span of years. The app would use truncated count models
-with log linear regression and zero inflation probability models with logistic regression.
-This app enables users to identify the significant changes in abundance level using Bayesian changepoint method. Species persistence models in both spatial and temporal scales are used to identify the significant
-predictors for species count data while considering zero inflation models and detect significant changes in
-species abundance level using changepoint analysis.
+The PPMCA package runs a Shiny web application that allows to
+visualize spatial and temporal species data, estimate significant factors and identify the significant changes in abundance level.
+The application allows to fit Bayesian zero inflation joint models to obtain significant estimates and their uncertainty
+by using R-INLA, and to detect changepoints by using four different Bayesian changepoint techniques.
+The application allows user interaction and creates interactive visualizations
+such as maps supporting padding and zooming and tables that allow for filtering.
 }

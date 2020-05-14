@@ -2,10 +2,10 @@
 % Please edit documentation in R/rfunctions.R
 \name{run_app}
 \alias{run_app}
-\title{Runs the PPMCA Shiny web application.}
+\title{Runs the SpatialEpiApp Shiny web application.}
 \usage{
-  run_app()
+run_app()
 }
 \description{
-  Runs the PPMCA Shiny web application.
+Runs the SpatialEpiApp Shiny web application.
 }
