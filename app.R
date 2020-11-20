@@ -70,7 +70,6 @@ tabPanel("Single-species Joint Model",
                          value = c(21, 30), min = 1, max = 35),
              numericInput("convex", "convex for boundary", 0.5, min = NA, max = NA, step = 0.0001),
              actionButton("mesh", "mesh"),
-             hr(),
              helpText("Zero-inflation model distribution is Binomial.
                              Applicable count models are 'Negative Binomial',
                              'Zero Inflated Negative Binomial' and 'Negative Binomial Hurdle'."),
@@ -82,7 +81,11 @@ tabPanel("Single-species Joint Model",
                          choices=c("spde", "iid"), selected = "iid"),
              selectInput("tempeffect", "temporal random effect model:",
                          choices=c("ar1", "iid", "rw1", "rw2"), selected = "ar1"),
-             hr(),
+             selectInput("int", "interaction between predictor variables:", choices = c("0","1"), selected = "0"),
+             selectInput("term", "variables which have interactions:", choices=c("1 and 2","1 and 3", "1 and 4", "1 and 5",
+                                                                                 "2 and 3", "2 and 4", "2 and 5",
+                                                                                 "3 and 4", "3 and 5", "4 and 5", "all"), selected = ""),
+             hr(), hr(), hr(), hr(), hr(), hr(),
              actionButton("summary", "Summary")
              ),
           mainPanel(fluidRow(column(4, tags$h3("Mesh:"), uiOutput("tab")),
@@ -91,7 +94,7 @@ tabPanel("Single-species Joint Model",
                              column(4, plotOutput("posteriormPlot")),
                              column(4, plotOutput("posteriorsdPlot"))),
                     tags$h3("Summary results of species joint model:"),
-                    fluidRow(column(12, div(style='height:400px; overflow: scroll',
+                    fluidRow(column(12, div(style='height:700px; overflow: scroll',
                              verbatimTextOutput("summary")))))
 )),
 
@@ -452,6 +455,7 @@ fitsummary <- reactive({
     }else if(input$tempeffect == "rw1"){"rw1"
     }else if(input$tempeffect == "rw1"){"rw2"
     }else{"iid"})
+
     Y = df2
     data = list(Y = Y, mu.z = mu.z, mu.y = mu.y)
 
@@ -512,6 +516,43 @@ fitsummary <- reactive({
     }else if(input$tempeffect == "rw1"){"rw1"
     }else if(input$tempeffect == "rw1"){"rw2"
     }else{"iid"})
+
+    int <- as.integer(if(input$int == "1"){1
+    }else {0})
+
+    if(npred == 2 & int == 1){
+      if(input$term == "1 and 2"){term <- as.integer(1)
+      }else{return("error")}
+    } else if(npred == 3 & int == 1){
+      if(input$term == "1 and 2"){term <- as.integer(1)
+      }else if(input$term == "1 and 3"){term <- as.integer(2)
+      }else if(input$term == "2 and 3"){term <- as.integer(5)
+      }else if(input$term == "all"){term <- as.character("all")
+      }else{return("error")}
+    } else if(npred == 4 & int == 1){
+      if(input$term == "1 and 2"){term <- as.integer(1)
+      }else if(input$term == "1 and 3"){term <- as.integer(2)
+      }else if(input$term == "1 and 4"){term <- as.integer(3)
+      }else if(input$term == "2 and 3"){term <- as.integer(5)
+      }else if(input$term == "2 and 4"){term <- as.integer(6)
+      }else if(input$term == "3 and 4"){term <- as.integer(8)
+      }else if(input$term == "all"){term <- as.character("all")
+      }else{return("error")}
+    } else if(npred == 5 & int == 1){
+      if(input$term == "1 and 2"){term <- as.integer(1)
+      }else if(input$term == "1 and 3"){term <- as.integer(2)
+      }else if(input$term == "1 and 4"){term <- as.integer(3)
+      }else if(input$term == "1 and 5"){term <- as.integer(4)
+      }else if(input$term == "2 and 3"){term <- as.integer(5)
+      }else if(input$term == "2 and 4"){term <- as.integer(6)
+      }else if(input$term == "2 and 5"){term <- as.integer(7)
+      }else if(input$term == "3 and 4"){term <- as.integer(8)
+      }else if(input$term == "3 and 5"){term <- as.integer(9)
+      }else if(input$term == "4 and 5"){term <- as.integer(10)
+      }else if(input$term == "all"){term <- as.character("all")
+      }else{return("error")}
+    }
+
     Y = df3
     data = list(Y = Y, mu.z = mu.z, mu.y = mu.y,
                 p.z1 = p.z1, p.y1 = p.y1, p.z2 = p.z2, p.y2 = p.y2,
@@ -519,14 +560,61 @@ fitsummary <- reactive({
                 p.z5 = p.z5, p.y5 = p.y5)
 
     if(npred == 1){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.y1 + f(S, model = sp) + f(year, model = tempeffect)
-    } else if(npred == 2){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.y1 + p.y2 + f(S, model = sp) + f(year, model = tempeffect)
-    } else if(npred == 3){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.y1 + p.y2 + p.y3 +
+    } else if(npred == 2 & int == 0){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.y1 + p.y2 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 2 & int == 1){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 + p.y1 * p.y2 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 3 & int == 0){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.y1 + p.y2 + p.y3 +
       f(S, model = sp) + f(year, model = tempeffect)
-    } else if(npred == 4){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.z4 + p.y1 + p.y2 + p.y3 + p.y4 +
+    } else if(npred == 3 & int == 1 & term == 1){
+      formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 + p.z3 + p.y1 * p.y2 + p.y3 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 3 & int == 1 & term == 2){
+      formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z3 + p.z2 + p.y1 * p.y3 + p.y2 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 3 & int == 1 & term == 5){
+      formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z3 + p.y1 + p.y2 * p.y3 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 3 & int == 1 & term == "all"){
+      formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 * p.z3 + p.y1 * p.y2 * p.y3 + f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.z4 + p.y1 + p.y2 + p.y3 + p.y4 +
       f(S, model = sp) + f(year, model = tempeffect)
-    } else {formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.z4 + p.z5 +
-      p.y1 + p.y2 + p.y3 + p.y4 + p.y5 +
-      f(S, model = sp) + f(year, model = tempeffect)}
+    } else if(npred == 4 & int == 1 & term == 1){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 + p.z3 + p.z4 + p.y1 * p.y2 + p.y3 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == 2){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z3 + p.z2 + p.z4 + p.y1 * p.y3 + p.y2 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == 3){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z4 + p.z2 + p.z3 + p.y1 * p.y4 + p.y2 + p.y3 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == 5){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z3 + p.z4 + p.y1 + p.y2 * p.y3 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == 6){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z4 + p.z3 + p.y1 + p.y2 * p.y4 + p.y3 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == 8){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 * p.z4 + p.y1 + p.y2 + p.y3 * p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 4 & int == 0 & term == "all"){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 * p.z3 * p.z4 + p.y1 * p.y2 * p.y3 * p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.z4 + p.z5 + p.y1 + p.y2 + p.y3 + p.y4 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 1 & term == 1){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 + p.z3 + p.z4 + p.z5 + p.y1 * p.y2 + p.y3 + p.y4 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 2){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z3 + p.z2 + p.z4 + p.z5 + p.y1 * p.y3 + p.y2 + p.y4 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 3){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z4 + p.z2 + p.z3 + p.z5 + p.y1 * p.y4 + p.y2 + p.y3 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 4){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z5 + p.z2 + p.z3 + p.z4 + p.y1 * p.y5 + p.y2 + p.y3 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 5){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z3 + p.z4 + p.z5 + p.y1 + p.y2 * p.y3 + p.y4 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 6){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z4 + p.z3 + p.z5 + p.y1 + p.y2 * p.y4 + p.y3 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 7){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 * p.z5 + p.z3 + p.z4 + p.y1 + p.y2 * p.y5 + p.y3 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 8){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 * p.z4 + p.z5 + p.y1 + p.y2 + p.y3 * p.y4 + p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 9){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 * p.z5 + p.z4 + p.y1 + p.y2 + p.y3 * p.y5 + p.y4 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 0 & term == 10){formula = Y ~ 0 + mu.z + mu.y + p.z1 + p.z2 + p.z3 + p.z4 * p.z5 + p.y1 + p.y2 + p.y3 + p.y4 * p.y5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else if(npred == 5 & int == 1 & term == "all"){formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 * p.z3 * p.z4 * p.z5 + p.y1 * p.y2 * p.y3 * p.y4 * p.z5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    } else {formula = Y ~ 0 + mu.z + mu.y + p.z1 * p.z2 * p.z3 * p.z4 * p.z5 + p.y1 * p.y2 * p.y3 * p.y4 * p.z5 +
+      f(S, model = sp) + f(year, model = tempeffect)
+    }
 
     distribution <- as.character(if(input$distribution == "Negative Binomial"){"nbinomial"
     } else if(input$distribution == "Zeroinflated Negative Binomial") {"zeroinflatednbinomial1"
@@ -873,7 +961,7 @@ output$changepointPlot <- renderPlot({
   }
 })
 
-url <- a("Definition", href="https://haakonbakka.bitbucket.io/btopic126.html")
+url <- a("Definition", href="https://rdrr.io/github/andrewzm/INLA/man/inla.mesh.2d.html")
 output$tab <- renderUI({
    tagList("URL link:", url)
 })
