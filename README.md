@@ -4,7 +4,7 @@
 
 Users can use this app to identify the significant explanatory variables and the trends of the species during a span of years. The app would use truncated count models with log linear regression and zero inflation probability models with logistic regression. This app enables users to identify the significant changes in abundance level using Bayesian changepoint methods. Species persistence models in both spatial and temporal scales are used to identify the significant predictors for species count data while considering zero inflation models and detect significant changes in species abundance level using changepoint analysis. 
 
-Udani Wijewardhana (udaniwijewardhana@gmail.com)1, Denny Meyer (dmeyer@swin.edu.au)1, and Madawa Jayawardana (madawa.jayawardana@petermac.org)1,2,3
+Udani Wijewardhana (udaniwijewardhana@gmail.com)1, Madawa Jayawardana (madawa.jayawardana@petermac.org)1,2,3 and Denny Meyer (dmeyer@swin.edu.au)1 
 
 1. Department of Statistics, Data Science and Epidemiology, Swinburne University of Technology, Hawthorn 3122 Victoria, Australia
 2. Peter MacCallum Cancer Centre, Melbourne 3000 Victoria, Australia
@@ -114,4 +114,4 @@ shiny::runApp(appDir = "./app.R")
 
 ## Manual 
 
-[PPMCA_manual](https://github.com/uwijewardhana/PPMCA/files/4621738/PPMCA_manual.pdf)
+[PPMCA_manual](https://github.com/uwijewardhana/PPMCA/blob/master/vignettes/manual.pdf)
