@@ -257,7 +257,7 @@ tabPanel("Changepoint Analysis",
            fluidRow(column(8, plotOutput("changepointPlot"))))
 ))))
 
-### Siny server ###
+### Shiny server ###
 
 server <- function(input, output) {
 
