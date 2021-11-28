@@ -97,7 +97,7 @@ shiny::runGitHub( "PPMCA", "uwijewardhana")
 - User should install the other attached packages listed in sessionInfo() to explore the application in R console.                          
 ### You can also install the "PPMCA" package and run the app on your r console following the steps below.
 
-- Download the https://github.com/uwijewardhana/PPMCA/ repository zip folder and extract.
+- Download the https://github.com/udaniwijewardhana/PPMCA/ repository zip folder and extract.
 - Open the extracted folder and open PPMCA.Rproj.
 - Then run the below code in PPMCA.Rproj:
                         
