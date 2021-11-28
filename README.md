@@ -111,7 +111,3 @@ shiny::runApp(appDir = "./app.R")
 > sessionInfo()
 
 ![github-small](https://user-images.githubusercontent.com/55830031/80561889-4b4f4580-8a29-11ea-81a1-023d9334023a.png)
-
-## Manual 
-
-[PPMCA_manual](https://github.com/uwijewardhana/PPMCA/blob/master/vignettes/manual.pdf)
